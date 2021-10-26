@@ -1,5 +1,7 @@
 class Api::V1::EmailsController < ApplicationController
-  def post
-    render json:
+
+  def index
+    emails = MailList.all
+    render json: emails
   end
 end
