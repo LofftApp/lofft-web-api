@@ -1,6 +1,6 @@
 # README
 
-Please follow this readme to see how to get the project set up on your computer. For a full guide regarding contribution, PR creation and design practices please refer to [To add]().
+Please follow this readme to see how to get the project set up on your computer. For a full guide regarding contribution, PR creation and design practices please refer to [Working Styles and Practices](https://github.com/MyWg/mywg-web-api/wiki/MyWG-Working-styles).
 
 ## Ruby version
 
