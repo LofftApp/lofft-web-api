@@ -1,24 +1,25 @@
-# README
+# Lofft Readme
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The Lofft API has been built using Ruby on Rails --api and has limited front end and views. Please refer to the [Contribution Guidlines](https://github.com/LofftApp/lofft-web-api/wiki/Development-Cycle) on how to structure your workflow.
 
-Things you may want to cover:
+The following commands are required to get the Lofft API set up on your device.
 
-* Ruby version
+Once the project has been downloaded into your files run the following commands to start the project.
 
-* System dependencies
+```
+  bundle install
+```
 
-* Configuration
+Once installed create, migrate and seed the database
 
-* Database creation
+```
+  rails db:create db:migrate db:seed
+```
 
-* Database initialization
+**Running the server**
 
-* How to run the test suite
+The Clinet module of Lofft searches for the project at localhost:3001 this port should be used when launching the server.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+  rails s -p 3001
+```
