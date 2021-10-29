@@ -1,5 +1,14 @@
 # Lofft Readme
 
+## Ruby version
+
+**v2.7.4**
+
+## Rails version
+
+**v6.1.4**
+
+
 The Lofft API has been built using Ruby on Rails --api and has limited front end and views. Please refer to the [Contribution Guidlines](https://github.com/LofftApp/lofft-web-api/wiki/Development-Cycle) on how to structure your workflow.
 
 The following commands are required to get the Lofft API set up on your device.
@@ -23,3 +32,12 @@ The Clinet module of Lofft searches for the project at localhost:3001 this port 
 ```
   rails s -p 3001
 ```
+
+## Services (job queues, cache servers, search engines, etc.)
+
+_There are currently no external service integrations_
+
+## Deployment instructions
+
+_Deployment is to Heroku through the main branch, this is completed after merge and review of new code_
+
