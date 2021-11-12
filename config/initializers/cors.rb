@@ -5,12 +5,19 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
-# Rails.application.config.middleware.insert_before 0, Rack::Cors do
-#   allow do
-#     origins 'example.com'
-#
-#     resource '*',
-#       headers: :any,
-#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
-#   end
-# end
+to_regexp = ->(string) { Regexp.new(string) }
+
+hosts = [
+  *ENV.fetch('ALLOWED_ORIGINS').split(','),
+  *ENV.fetch('ALLOWED_ORIGIN_REGEXPS').split(';').map(&to_regexp)
+]
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins(*hosts)
+
+    resource '*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  end
+end
