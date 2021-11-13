@@ -31,6 +31,9 @@ gem 'devise'
 # JWT is used for authentication with an API, it interacts with devise.
 gem 'devise-jwt', '~> 0.9.0'
 
+# Fast JSON
+gem 'fast_jsonapi'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
