@@ -23,10 +23,13 @@ gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
 
 # Devise, this is used to handle user authentication.
 gem 'devise'
+
+# JWT is used for authentication with an API, it interacts with devise.
+gem 'devise-jwt', '~> 0.9.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
