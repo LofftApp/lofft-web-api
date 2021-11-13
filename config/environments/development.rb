@@ -35,6 +35,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Action mailer set to localhost for devise set port 3001 from 3000 as API runs on 3001.
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
