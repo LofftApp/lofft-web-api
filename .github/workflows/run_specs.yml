@@ -34,7 +34,7 @@ jobs:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
-          PGPASSWORD: postgres
+          PGPASSWORD: ""
           RAILS_MASTER_KEY: ${{secrets.Rails_MASTER_KEY}}
         run: |
           sudo apt-get -yqq install libpq-dev
