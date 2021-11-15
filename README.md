@@ -12,7 +12,6 @@ Please follow this readme to see how to get the project set up on your computer.
 
 ## System dependencies
 
-
 ## Configuration
 
 ```
@@ -33,10 +32,10 @@ rails db:migrate
 
 ## How to run the test suite
 
-_Run on port 3001_
+_Run on port 3001 (defaults 3001)_
 
 ```
-rails s -p 3001
+rails s
 ```
 
 ## Services (job queues, cache servers, search engines, etc.)
