@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :configure_sign_up_params, if: :devise_controller?
   respond_to :json
 
   private
@@ -56,10 +57,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # protected
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  # def user_params
+  #   params.require(:user).permit(:first_name, :last_name, :email, :password)
   # end
+
+  # If you have extra params to permit, append them to the sanitizer.
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute, :first_name, :last_name])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
