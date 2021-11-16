@@ -30,6 +30,7 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
   # def new
   #   super
+  #   p "You created a new session"
   # end
 
   # POST /resource/sign_in
