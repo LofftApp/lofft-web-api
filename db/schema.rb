@@ -15,13 +15,13 @@ ActiveRecord::Schema.define(version: 2021_12_08_141745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "appartments", force: :cascade do |t|
+  create_table "apartments", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_appartments_on_user_id"
+    t.index ["user_id"], name: "index_apartments_on_user_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -30,13 +30,13 @@ ActiveRecord::Schema.define(version: 2021_12_08_141745) do
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
-  create_table "user_appartments_tables", force: :cascade do |t|
+  create_table "user_apartments_tables", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "appartment_id", null: false
+    t.bigint "apartment_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["appartment_id"], name: "index_user_appartments_tables_on_appartment_id"
-    t.index ["user_id"], name: "index_user_appartments_tables_on_user_id"
+    t.index ["apartment_id"], name: "index_user_apartments_tables_on_apartment_id"
+    t.index ["user_id"], name: "index_user_apartments_tables_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,13 +50,12 @@ ActiveRecord::Schema.define(version: 2021_12_08_141745) do
     t.string "jti", null: false
     t.string "first_name"
     t.string "last_name"
-    t.string "user_type", default: "user"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "appartments", "users"
-  add_foreign_key "user_appartments_tables", "appartments"
-  add_foreign_key "user_appartments_tables", "users"
+  add_foreign_key "apartments", "users"
+  add_foreign_key "user_apartments_tables", "apartments"
+  add_foreign_key "user_apartments_tables", "users"
 end

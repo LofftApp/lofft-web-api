@@ -7,5 +7,5 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable,
           :jwt_authenticatable, jwt_revocation_strategy: self
 
-  has_one :appartment, through: :user_appartments
+  has_one :apartment, through: :user_apartments
 end
