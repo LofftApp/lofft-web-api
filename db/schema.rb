@@ -30,13 +30,13 @@ ActiveRecord::Schema.define(version: 2021_12_08_141745) do
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
-  create_table "user_apartments_tables", force: :cascade do |t|
+  create_table "user_apartments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "apartment_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["apartment_id"], name: "index_user_apartments_tables_on_apartment_id"
-    t.index ["user_id"], name: "index_user_apartments_tables_on_user_id"
+    t.index ["apartment_id"], name: "index_user_apartments_on_apartment_id"
+    t.index ["user_id"], name: "index_user_apartments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,6 +56,6 @@ ActiveRecord::Schema.define(version: 2021_12_08_141745) do
   end
 
   add_foreign_key "apartments", "users"
-  add_foreign_key "user_apartments_tables", "apartments"
-  add_foreign_key "user_apartments_tables", "users"
+  add_foreign_key "user_apartments", "apartments"
+  add_foreign_key "user_apartments", "users"
 end
