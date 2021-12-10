@@ -18,21 +18,17 @@ ActiveRecord::Schema.define(version: 2021_12_10_080323) do
   create_table "apartments", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_apartments_on_user_id"
   end
 
   create_table "bills", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "name"
     t.text "description"
     t.integer "value"
-    t.string "currency"
+    t.string "currency", default: "EUR"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_bills_on_user_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -44,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_12_10_080323) do
   create_table "user_apartments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "apartment_id", null: false
+    t.boolean "creater", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["apartment_id"], name: "index_user_apartments_on_apartment_id"
@@ -52,15 +49,15 @@ ActiveRecord::Schema.define(version: 2021_12_10_080323) do
 
   create_table "user_apartments_bills", force: :cascade do |t|
     t.bigint "bill_id", null: false
-    t.bigint "user_id"
-    t.bigint "apartment_id"
+    t.bigint "user_owner_id", null: false
+    t.bigint "user_payer_id", null: false
     t.boolean "paid"
     t.boolean "received"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["apartment_id"], name: "index_user_apartments_bills_on_apartment_id"
     t.index ["bill_id"], name: "index_user_apartments_bills_on_bill_id"
-    t.index ["user_id"], name: "index_user_apartments_bills_on_user_id"
+    t.index ["user_owner_id"], name: "index_user_apartments_bills_on_user_owner_id"
+    t.index ["user_payer_id"], name: "index_user_apartments_bills_on_user_payer_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,11 +76,9 @@ ActiveRecord::Schema.define(version: 2021_12_10_080323) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "apartments", "users"
-  add_foreign_key "bills", "users"
   add_foreign_key "user_apartments", "apartments"
   add_foreign_key "user_apartments", "users"
-  add_foreign_key "user_apartments_bills", "apartments"
   add_foreign_key "user_apartments_bills", "bills"
-  add_foreign_key "user_apartments_bills", "users"
+  add_foreign_key "user_apartments_bills", "users", column: "user_owner_id"
+  add_foreign_key "user_apartments_bills", "users", column: "user_payer_id"
 end
