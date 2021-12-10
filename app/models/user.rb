@@ -8,4 +8,5 @@ class User < ApplicationRecord
           :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_one :apartment, through: :user_apartments
+  has_many :bills, through: :user_apartments_bills
 end

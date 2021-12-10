@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_10_075848) do
+ActiveRecord::Schema.define(version: 2021_12_10_080323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,19 @@ ActiveRecord::Schema.define(version: 2021_12_10_075848) do
     t.index ["user_id"], name: "index_user_apartments_on_user_id"
   end
 
+  create_table "user_apartments_bills", force: :cascade do |t|
+    t.bigint "bill_id", null: false
+    t.bigint "user_id"
+    t.bigint "apartment_id"
+    t.boolean "paid"
+    t.boolean "received"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["apartment_id"], name: "index_user_apartments_bills_on_apartment_id"
+    t.index ["bill_id"], name: "index_user_apartments_bills_on_bill_id"
+    t.index ["user_id"], name: "index_user_apartments_bills_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -70,4 +83,7 @@ ActiveRecord::Schema.define(version: 2021_12_10_075848) do
   add_foreign_key "bills", "users"
   add_foreign_key "user_apartments", "apartments"
   add_foreign_key "user_apartments", "users"
+  add_foreign_key "user_apartments_bills", "apartments"
+  add_foreign_key "user_apartments_bills", "bills"
+  add_foreign_key "user_apartments_bills", "users"
 end
