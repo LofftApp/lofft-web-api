@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_08_141745) do
+ActiveRecord::Schema.define(version: 2021_12_10_075848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 2021_12_08_141745) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_apartments_on_user_id"
+  end
+
+  create_table "bills", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.text "description"
+    t.integer "value"
+    t.string "currency"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_bills_on_user_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -56,6 +67,7 @@ ActiveRecord::Schema.define(version: 2021_12_08_141745) do
   end
 
   add_foreign_key "apartments", "users"
+  add_foreign_key "bills", "users"
   add_foreign_key "user_apartments", "apartments"
   add_foreign_key "user_apartments", "users"
 end
