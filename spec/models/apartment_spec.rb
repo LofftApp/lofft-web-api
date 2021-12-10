@@ -16,13 +16,18 @@ RSpec.describe Apartment, type: :model do
     expect(apartment).to_not be_valid
   end
 
-  it 'allows the linking of users with apartments' do
-    user1 = User.create({ first_name: 'James', last_name: 'Hibbeard', email: 'jhibbeard@example.com', password: '123456' })
-    user2 = User.create({ first_name: 'Adam', last_name: 'Smith', email: 'adam@example.com', password: '123456' })
+  it 'allows the linking of apartments with users' do
+    user = User.create({ first_name: 'James', last_name: 'Hibbeard', email: 'jhibbeard@example.com', password: '123456' })
     apartment = Apartment.create({name: "The Pad", address: "The Street, The house, PO2 1EB"})
+    apartment.users << user
+    (apartment.users[0].id).should eq(user.id)
+  end
 
-
-
+  it 'allows the linking of users with apartments' do
+    user = User.create({ first_name: 'James', last_name: 'Hibbeard', email: 'jhibbeard@example.com', password: '123456' })
+    apartment = Apartment.create({name: "The Pad", address: "The Street, The house, PO2 1EB"})
+    user.apartments << apartment
+    (user.apartments[0].id).should eq(apartment.id)
   end
 end
 
