@@ -6,4 +6,8 @@ class User < ApplicationRecord
   devise  :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable,
           :jwt_authenticatable, jwt_revocation_strategy: self
+
+  # Connections and relationships
+  has_many :user_apartments
+  has_many :apartments, through: :user_apartments
 end

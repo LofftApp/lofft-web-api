@@ -1,3 +1,0 @@
-class UserApartments < ApplicationRecord
-
-end

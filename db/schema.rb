@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 2021_12_10_080323) do
   end
 
   create_table "user_apartments", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "apartment_id", null: false
+    t.bigint "user_id"
+    t.bigint "apartment_id"
     t.boolean "creater", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -76,8 +76,6 @@ ActiveRecord::Schema.define(version: 2021_12_10_080323) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "user_apartments", "apartments"
-  add_foreign_key "user_apartments", "users"
   add_foreign_key "user_apartments_bills", "bills"
   add_foreign_key "user_apartments_bills", "users", column: "user_owner_id"
   add_foreign_key "user_apartments_bills", "users", column: "user_payer_id"
