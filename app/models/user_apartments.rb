@@ -1,0 +1,3 @@
+class UserApartments < ApplicationRecord
+
+end
