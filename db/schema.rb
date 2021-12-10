@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_10_153025) do
+ActiveRecord::Schema.define(version: 2021_12_10_153357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "apartment_bills", force: :cascade do |t|
+    t.bigint "apartment_id", null: false
+    t.bigint "bill_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["apartment_id"], name: "index_apartment_bills_on_apartment_id"
+    t.index ["bill_id"], name: "index_apartment_bills_on_bill_id"
+  end
 
   create_table "apartments", force: :cascade do |t|
     t.string "name"
@@ -47,6 +56,16 @@ ActiveRecord::Schema.define(version: 2021_12_10_153025) do
     t.index ["user_id"], name: "index_user_apartments_on_user_id"
   end
 
+  create_table "user_bills", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "bill_id", null: false
+    t.boolean "owner", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bill_id"], name: "index_user_bills_on_bill_id"
+    t.index ["user_id"], name: "index_user_bills_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -63,4 +82,8 @@ ActiveRecord::Schema.define(version: 2021_12_10_153025) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "apartment_bills", "apartments"
+  add_foreign_key "apartment_bills", "bills"
+  add_foreign_key "user_bills", "bills"
+  add_foreign_key "user_bills", "users"
 end

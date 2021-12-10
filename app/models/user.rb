@@ -10,4 +10,7 @@ class User < ApplicationRecord
   # Connections and relationships
   has_many :user_apartments
   has_many :apartments, through: :user_apartments
+
+  has_many :user_bills
+  has_many :bills, through: :user_bills
 end
