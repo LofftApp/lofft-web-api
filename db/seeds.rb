@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Users
+users = ["James Smith", "Adam Peters", "Valentine Müller", "Fred Jones", "Ivo Waznyak", "Nick Jones", "Peter Dickson", "Lawrence Andrews", "Andrew Franco", "Chris Faria", "Lara Johnson", "Ruby Jones", "Sarah Johnson"]
+
+users.each do |user|
+  first_name = user.split[0]
+  last_name = user.split[1]
+  User.create({first_name: first_name, last_name: last_name, email: "#{first_name}.#{last_name}@example.com", password: "123456"})
+end
