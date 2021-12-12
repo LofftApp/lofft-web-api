@@ -1,10 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+gem 'pry-byebug'
+
 
 # Users
 p "Seeding Users"
@@ -63,18 +58,15 @@ end
 p "Seeding bills to users and apartments"
 bills = Bill.all
 bills.each do |bill|
-  i = rand(0..users.length)
+  i = rand(0...users.length)
   user = users[i]
   user.bills << bill
   user.user_bills.find_by(bill_id: bill.id).update(owner: true)
   if bill.apartment
     user.apartments.first.bills << bill
   else
-    user_json = users.as_json
-    user_json.delete_at(i)
-    i = rand(0..user_json.length)
-    id = user_json[i]["id"]
-    user = User.find_by(id: id)
+    i = rand(1..users.length)
+    user = User.find_by(id: i)
     user.bills << bill
   end
 end
