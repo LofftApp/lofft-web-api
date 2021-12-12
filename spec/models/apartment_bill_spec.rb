@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ApartmentBill, type: :model do
   apartment = Apartment.create({name: "The Pad", address: "The pad, Grolmanstr 13, Berlin"})
   bill = Bill.create({name: "Beer Night", description: "A night of beers", value: 125})
-  user = User.first
+  user = User.create({first_name: "John", last_name: "Smith", email: "jsmith2@example.com", password: "123456"})
 
   apartment.bills << bill
 
