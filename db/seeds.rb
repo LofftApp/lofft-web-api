@@ -29,7 +29,7 @@ apartments.each do |apartment|
 end
 
 # Bills
-
+p "Seeding Bills"
 bills = [
   {name: "Beers", description: "Beers at the pub", value: 125 },
   {name: "Washing Machine", description: "New Washing Machine in the WG", value: 450 },
@@ -45,6 +45,20 @@ bills = [
 bills.each do |bill|
   Bill.create(bill)
 end
+
+# Connecting User to Apartments
+p "Adding users to apartments"
+apartments = Apartment.all
+users = User.all
+apartmentAdded = []
+
+users.each do |user|
+  i = rand(apartments.length)
+  user.apartments << apartments[i]
+  !apartmentAdded.include?(i) ? user.user_apartments.first.update(owner: true) : nil
+  apartmentAdded << i
+end
+
 
 
 p "Seeding complete"
