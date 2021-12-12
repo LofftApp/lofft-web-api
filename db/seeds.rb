@@ -31,15 +31,15 @@ end
 # Bills
 p "Seeding Bills"
 bills = [
-  {name: "Beers", description: "Beers at the pub", value: 125 },
-  {name: "Washing Machine", description: "New Washing Machine in the WG", value: 450 },
+  {name: "Beers", description: "Beers at the pub", value: 125, apartment: true },
+  {name: "Washing Machine", description: "New Washing Machine in the WG", value: 450, apartment: true },
   {name: "IOU", description: "Money I borrowed from last week", value: 4.50 },
-  {name: "Cleaning Bill", description: "Cleaning of apartment from Party", value: 150 },
-  {name: "Vinyl Player", description: "Our new Bougy AF Vinyl Player", value: 85 },
-  {name: "Lebensmittle", description: "Lebensmittle für Mittwoch Abendessen", value: 21 },
-  {name: "Party Beers", description: "Beers and food for last weeks party", value: 212 },
-  {name: "New WG Bike", description: "The new WG Bike", value: 32 },
-  {name: "Lavée notre appartement", description: "Que j'ecries", value: 85 }
+  {name: "Cleaning Bill", description: "Cleaning of apartment from Party", value: 150, apartment: true },
+  {name: "Vinyl Player", description: "Our new Bougy AF Vinyl Player", value: 85, apartment: true },
+  {name: "Dinner at Cái", description: "Split bill eating out", value: 55 },
+  {name: "Party Beers", description: "Beers and food for last weeks party", value: 212, apartment: true },
+  {name: "New WG Bike", description: "The new WG Bike", value: 32, apartment: true },
+  {name: "Lavée notre appartement", description: "Que j'ecries", value: 85, apartment: true }
 ]
 
 bills.each do |bill|
@@ -59,6 +59,24 @@ users.each do |user|
   apartmentAdded << i
 end
 
-
+# Adding Bills to Users and Apartments
+p "Seeding bills to users and apartments"
+bills = Bill.all
+bills.each do |bill|
+  i = rand(0..users.length)
+  user = users[i]
+  user.bills << bill
+  user.user_bills.find_by(bill_id: bill.id).update(owner: true)
+  if bill.apartment
+    user.apartments.first.bills << bill
+  else
+    user_json = users.as_json
+    user_json.delete_at(i)
+    i = rand(0..user_json.length)
+    id = user_json[i]["id"]
+    user = User.find_by(id: id)
+    user.bills << bill
+  end
+end
 
 p "Seeding complete"
