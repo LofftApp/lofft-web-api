@@ -5,7 +5,7 @@ RSpec.describe Bill, type: :model do
   it 'allows a user to create a bill' do
     bill = Bill.create({name: "New TV", description: "A new TV for the WG", value: 350})
     user.bills << bill
-    (user.bills[0].id).should eq(bill.id)
+    expect(user.bills[0].id).to eq(bill.id)
   end
 end
 
