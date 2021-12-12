@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Users
+p "Seeding Users"
 users = ["James Smith", "Adam Peters", "Valentine Müller", "Fred Jones", "Ivo Waznyak", "Nick Jones", "Peter Dickson", "Lawrence Andrews", "Andrew Franco", "Chris Faria", "Lara Johnson", "Ruby Jones", "Sarah Johnson"]
 
 users.each do |user|
@@ -14,3 +15,17 @@ users.each do |user|
   last_name = user.split[1]
   User.create({first_name: first_name, last_name: last_name, email: "#{first_name}.#{last_name}@example.com", password: "123456"})
 end
+
+# Apartments
+p "Seeding Apartments"
+apartments = [
+  {name: "The Pad", address: "24 Wilhelmstr, Berlin, 10523" },
+  {name: "Home", address: "15 Schillerstr, Berlin, 10434" },
+  {name: "No Name", address: "4 Grolmanstr, Berlin, 10987" }
+]
+
+apartments.each do |apartment|
+  Apartment.create(apartment)
+end
+
+p "Seeding complete"
