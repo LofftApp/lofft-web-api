@@ -10,4 +10,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+  # Routes
+  resources :apartments
+  resources :bills
 end
