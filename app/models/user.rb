@@ -7,5 +7,10 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable,
           :jwt_authenticatable, jwt_revocation_strategy: self
 
-  has_one :apartment, through: :user_apartments
+  # Connections and relationships
+  has_many :user_apartments
+  has_many :apartments, through: :user_apartments
+
+  has_many :user_bills
+  has_many :bills, through: :user_bills
 end
