@@ -4,7 +4,7 @@ Please follow this readme to see how to get the project set up on your computer.
 
 ## Ruby version
 
-**v2.7.4**
+**v2.7.5**
 
 ## Rails version
 
