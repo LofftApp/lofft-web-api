@@ -89,6 +89,11 @@ GEM
     dry-core (0.7.1)
       concurrent-ruby (~> 1.0)
     erubi (1.10.0)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faker (2.19.0)
       i18n (>= 1.6, < 2)
     fast_jsonapi (1.5)
@@ -98,6 +103,20 @@ GEM
       activesupport (>= 5.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    jsonapi-deserializable (0.2.0)
+    jsonapi-parser (0.1.1)
+    jsonapi-rails (0.4.0)
+      jsonapi-parser (~> 0.1.0)
+      jsonapi-rb (~> 0.5.0)
+    jsonapi-rb (0.5.0)
+      jsonapi-deserializable (~> 0.2.0)
+      jsonapi-serializable (~> 0.3.0)
+    jsonapi-renderer (0.2.2)
+    jsonapi-rspec (0.0.11)
+      rspec-core
+      rspec-expectations
+    jsonapi-serializable (0.3.1)
+      jsonapi-renderer (~> 0.2.0)
     jwt (2.3.0)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -220,8 +239,11 @@ DEPENDENCIES
   byebug
   devise
   devise-jwt (~> 0.9.0)
+  factory_bot_rails
   faker
   fast_jsonapi
+  jsonapi-rails
+  jsonapi-rspec
   listen (~> 3.3)
   pg (~> 1.1)
   pry-byebug
