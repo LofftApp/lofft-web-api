@@ -9,7 +9,7 @@ describe Api::BillsController, type: :request do
     before do
       signin_with_api(user)
       post bills_url, headers: {
-        'Authorization': response.headers['Authorization']
+        'Authorization': response.headers['Authorization'],
       }, params: {
         bill: {
           name: bill.name,

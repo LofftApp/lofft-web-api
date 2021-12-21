@@ -1,5 +1,7 @@
 class Api::BillsController < Api::BaseController
 
+  before_action :authenticate_user!
+  respond_to :json
   def create
     @bill = Bill.new(bill_params)
     @bill.save
