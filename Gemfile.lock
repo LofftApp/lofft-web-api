@@ -60,6 +60,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    algebrick (0.7.5)
+    apipie-params (0.0.5)
     bcrypt (3.1.16)
     bootsnap (1.9.1)
       msgpack (~> 1.0)
@@ -67,6 +69,8 @@ GEM
     byebug (11.1.3)
     coderay (1.1.3)
     concurrent-ruby (1.1.9)
+    concurrent-ruby-edge (0.6.0)
+      concurrent-ruby (~> 1.1.6)
     crass (1.0.6)
     devise (4.8.0)
       bcrypt (~> 3.0)
@@ -88,6 +92,14 @@ GEM
       dry-configurable (~> 0.13, >= 0.13.0)
     dry-core (0.7.1)
       concurrent-ruby (~> 1.0)
+    dynflow (1.6.2)
+      algebrick (~> 0.7.0)
+      apipie-params
+      concurrent-ruby (~> 1.1.3)
+      concurrent-ruby-edge (~> 0.6.0)
+      msgpack (~> 1.3, >= 1.3.3)
+      multi_json
+      sequel (>= 4.0.0)
     erubi (1.10.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
@@ -99,6 +111,13 @@ GEM
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
     ffi (1.15.4)
+    foreman-tasks (5.3.0)
+      dynflow (>= 1.6.0)
+      get_process_mem
+      parse-cron (~> 0.1.4)
+      sinatra
+    get_process_mem (0.2.7)
+      ffi (~> 1.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
     i18n (1.8.10)
@@ -132,6 +151,9 @@ GEM
     mini_portile2 (2.6.1)
     minitest (5.14.4)
     msgpack (1.4.2)
+    multi_json (1.15.0)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
@@ -141,6 +163,7 @@ GEM
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    parse-cron (0.1.4)
     pg (1.2.3)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -154,6 +177,8 @@ GEM
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-protection (2.1.0)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.4.1)
@@ -206,6 +231,13 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
+    ruby2_keywords (0.0.5)
+    sequel (5.51.0)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
     spring (3.0.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -215,6 +247,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (1.1.0)
+    tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     warden (1.2.9)
@@ -242,6 +275,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fast_jsonapi
+  foreman-tasks
   jsonapi-rails
   jsonapi-rspec
   listen (~> 3.3)

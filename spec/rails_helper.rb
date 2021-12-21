@@ -44,6 +44,7 @@ RSpec.configure do |config|
   config.include JSONAPI::RSpec
   config.include UserHelpers
   config.include ApiHelpers
+  config.include BillHelpers
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 
