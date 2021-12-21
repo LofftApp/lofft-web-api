@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Api::BillsController, type: :request do
   let (:bill) { build_bill }
   let (:user) { create_user }
-  let (:bills_url) {'/api/bills'}
+  let (:bills_url) { '/api/bills' }
 
   context 'Creating a new Bill' do
     before do
