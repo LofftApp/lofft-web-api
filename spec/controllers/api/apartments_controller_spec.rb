@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::ApartmentsController, type: :request do
-  let (:apartment) { create_apartment }
+  let (:apartment) { build_apartment }
   let (:user) { create_user }
   let (:apartment_url) { '/api/apartments' }
 
