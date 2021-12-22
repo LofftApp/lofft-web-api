@@ -10,7 +10,6 @@ class Api::BillsController < Api::BaseController
     @user_bill = UserBill.new
     @user_bill.user = @user
     @user_bill.bill = @bill
-    @user_bill.owner = true
     @user_bill.save
 
     render json: @user_bill
