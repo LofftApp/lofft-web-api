@@ -2,10 +2,11 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique
   skip_before_action :verify_authenticity_token, if: :json_request?
 
+  # rescue_from ActiveRecord::RecordNotFound, with: :rescue_from_not_found
+
   def json_request?
     request.format.json?
   end
-
 
   def render_jsonapi_response(resource)
     if resource.errors.empty?
@@ -25,5 +26,4 @@ class ApplicationController < ActionController::Base
       ]
     }, status: 400
   end
-
 end

@@ -22,13 +22,13 @@ Devise.setup do |config|
   # Devise JWT toke configuration, this generates a token to be used with the request.
   config.jwt do |jwt|
     jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
-      jwt.dispatch_requests = [
-        ['POST', %r{^/api/signin$}]
-      ]
-      jwt.revocation_requests = [
-        ['DELETE', %r{^/api/signout$}]
-      ]
-      jwt.expiration_time = 1.day.to_i
+    jwt.dispatch_requests = [
+      ['POST', %r{^/api/signin$}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/api/signout$}]
+    ]
+    jwt.expiration_time = 1.day.to_i
   end
 
   # ==> Mailer Configuration

@@ -23,19 +23,26 @@ apartments.each do |apartment|
   Apartment.create(apartment)
 end
 
+def find_user
+  i = rand(1..User.all.length)
+  user = User.find_by(id: i)
+  user.id
+end
+
 # Bills
 p "Seeding Bills"
 bills = [
-  {name: "Beers", description: "Beers at the pub", value: 125, apartment: true },
-  {name: "Washing Machine", description: "New Washing Machine in the WG", value: 450, apartment: true },
-  {name: "IOU", description: "Money I borrowed from last week", value: 4.50 },
-  {name: "Cleaning Bill", description: "Cleaning of apartment from Party", value: 150, apartment: true },
-  {name: "Vinyl Player", description: "Our new Bougy AF Vinyl Player", value: 85, apartment: true },
-  {name: "Dinner at Cái", description: "Split bill eating out", value: 55 },
-  {name: "Party Beers", description: "Beers and food for last weeks party", value: 212, apartment: true },
-  {name: "New WG Bike", description: "The new WG Bike", value: 32, apartment: true },
-  {name: "Lavée notre appartement", description: "Que j'ecries", value: 85, apartment: true }
+  {name: "Beers", user_id: find_user, description: "Beers at the pub", value: 125, apartment: true },
+  {name: "Washing Machine", user_id: find_user, description: "New Washing Machine in the WG", value: 450, apartment: true },
+  {name: "IOU", user_id: find_user, description: "Money I borrowed from last week", value: 4.50 },
+  {name: "Cleaning Bill", user_id: find_user, description: "Cleaning of apartment from Party", value: 150, apartment: true },
+  {name: "Vinyl Player", user_id: find_user, description: "Our new Bougy AF Vinyl Player", value: 85, apartment: true },
+  {name: "Dinner at Cái", user_id: find_user, description: "Split bill eating out", value: 55 },
+  {name: "Party Beers", user_id: find_user, description: "Beers and food for last weeks party", value: 212, apartment: true },
+  {name: "New WG Bike", user_id: find_user, description: "The new WG Bike", value: 32, apartment: true },
+  {name: "Lavée notre appartement", user_id: find_user, description: "Que j'ecries", value: 85, apartment: true }
 ]
+
 
 bills.each do |bill|
   Bill.create(bill)
@@ -61,7 +68,7 @@ bills.each do |bill|
   i = rand(0...users.length)
   user = users[i]
   user.bills << bill
-  user.user_bills.find_by(bill_id: bill.id).update(owner: true)
+  # user.user_bills.find_by(bill_id: bill.id).update(owner: true)
   if bill.apartment
     user.apartments.first.bills << bill
   else
