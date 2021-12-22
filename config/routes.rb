@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :users, only: %w[show]
     resources :apartments
     resources :bills
+    resources :user_bills, only: %w[index]
   end
 
   devise_for :users,
