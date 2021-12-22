@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_094704) do
+ActiveRecord::Schema.define(version: 2021_12_22_095846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2021_12_22_094704) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "apartment", default: false
     t.boolean "paid", default: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_bills_on_user_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -87,6 +89,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_094704) do
 
   add_foreign_key "apartment_bills", "apartments"
   add_foreign_key "apartment_bills", "bills"
+  add_foreign_key "bills", "users"
   add_foreign_key "user_bills", "bills"
   add_foreign_key "user_bills", "users"
 end
