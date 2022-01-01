@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :users, only: %w[show]
     resources :apartments, only: %w[index create]
     resources :bills, only: %w[index create update]
-    resources :user_bills, only: %w[index]
+    resources :user_bills, only: %w[index update]
   end
 
   devise_for :users,

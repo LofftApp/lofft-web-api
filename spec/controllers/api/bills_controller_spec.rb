@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Api::BillsController, type: :request do
-
   # User Construction
   let (:user) { create_user }
   let (:second_user) { create_user }
@@ -60,6 +59,51 @@ describe Api::BillsController, type: :request do
     it 'returns current user assigned to the bill' do
       json_response = JSON.parse(response.stream.body)
       expect(json_response[0]["user_id"]).to eq(second_user.id)
+    end
+  end
+
+  context 'User is able to accept the value of accepted' do
+    before do
+      user_bill
+      signin_with_api(second_user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        accept: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Updated bill value is true' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["accepted"]).to eq(true)
+    end
+
+
+  end
+
+
+  context 'Other users are unable to change the auth status of a bill' do
+    before do
+      user_bill
+      signin_with_api(user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        accept: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Returns an error message' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["error"]).to be_present
     end
   end
 end
