@@ -107,7 +107,29 @@ describe Api::BillsController, type: :request do
     end
   end
 
-    context 'User is able to pay the value of the bill' do
+  context 'User is able to pay the value of the bill' do
+    before do
+      user_bill
+      signin_with_api(second_user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        accept: true,
+        paid: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Updated bill value is true' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["paid"]).to eq(true)
+    end
+  end
+
+  context 'A bill must be accepted in order to be paid' do
     before do
       user_bill
       signin_with_api(second_user)
@@ -122,9 +144,9 @@ describe Api::BillsController, type: :request do
       expect(response.status).to eq(200)
     end
 
-    it 'Updated bill value is true' do
+    it 'Returns an error message' do
       json_response = JSON.parse(response.stream.body)
-      expect(json_response["paid"]).to eq(true)
+      expect(json_response["error"]).to be_present
     end
   end
 

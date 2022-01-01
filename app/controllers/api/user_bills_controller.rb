@@ -8,6 +8,7 @@ class Api::UserBillsController < ApplicationController
     bill = UserBill.find(params[:id])
     if bill.user_id == current_user.id
       bill.accepted = params[:accept] == 'true'
+      return render json: { error: 'This bill has not been accepted' } unless bill.accepted
       bill.paid = params[:paid] == 'true'
       render json: bill
     else

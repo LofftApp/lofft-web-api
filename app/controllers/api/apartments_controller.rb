@@ -7,8 +7,6 @@ class Api::ApartmentsController < ApplicationController
     render json: @apartment
   end
 
-
-
   private
 
   def apartment_params
