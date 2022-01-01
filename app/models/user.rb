@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :user_apartments
   has_many :apartments, through: :user_apartments
 
+  has_many :bills
+
   has_many :user_bills
   has_many :bills, through: :user_bills
 end

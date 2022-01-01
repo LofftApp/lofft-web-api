@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   default_url_options :host => "lofft.app"
   namespace :api, defaults: { format: :json } do
     resources :users, only: %w[show]
-    resources :apartments
-    resources :bills
+    resources :apartments, only: %w[index create]
+    resources :bills, only: %w[index create update]
     resources :user_bills, only: %w[index]
   end
 

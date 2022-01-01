@@ -8,7 +8,7 @@ describe Api::ApartmentsController, type: :request do
   context 'Creating a new Apartment' do
     before do
       signin_with_api(user)
-      post apartment_url, headers: {
+      post api_apartments_url, headers: {
         'Authorization': response.headers['Authorization']
       }, params: {
         apartment: {
