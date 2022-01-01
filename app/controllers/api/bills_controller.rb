@@ -15,7 +15,7 @@ class Api::BillsController < Api::BaseController
       @user_bill.user = @user
       @user_bill.bill = @bill
       @user_bill.save
-    end
+    end unless user.count.zero?
     render json: @bill
   end
 

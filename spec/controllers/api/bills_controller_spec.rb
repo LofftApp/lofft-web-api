@@ -1,13 +1,18 @@
 require 'rails_helper'
 
 describe Api::BillsController, type: :request do
-  # Bill builder for test
-  let (:bill) { build_bill }
 
   # User Construction
   let (:user) { create_user }
   let (:second_user) { create_user }
   let (:third_user) { create_user }
+
+  # Bill builder for test
+  let (:bill) { build_bill }
+  let (:second_bill) { create_bill(user) }
+
+  # Create the User bills connection
+  let (:user_bill) { create_user_bill(second_bill, second_user)}
 
   let (:bills_url) { '/api/bills' }
   let (:user_bills_url) {'/api/user_bills'}
@@ -34,20 +39,17 @@ describe Api::BillsController, type: :request do
     it 'returns 200' do
       expect(response.status).to eq(200)
     end
-    # it 'returns bill_id' do
-    #   @json_response = JSON.parse(response.stream.body)
-    #   expect(@json_response["bill_id"]).to be_present
-    # end
     it 'returns user_id with correct value' do
-      @json_response = JSON.parse(response.stream.body)
-      expect(@json_response["user_id"]).to eq(user.id)
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["user_id"]).to eq(user.id)
     end
   end
 
   # A user is able to get the value of their bills.
   context 'User get value of their bills' do
     before do
-      signin_with_api(user)
+      user_bill
+      signin_with_api(second_user)
       get api_user_bills_url, headers: {
         'Authorization': response.headers['Authorization']
       }
@@ -55,8 +57,9 @@ describe Api::BillsController, type: :request do
     it 'returns 200' do
       expect(response.status).to eq(200)
     end
-    it 'returns current users assigned to the bill' do
-      expect(response)
+    it 'returns current user assigned to the bill' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response[0]["user_id"]).to eq(second_user.id)
     end
   end
 end
