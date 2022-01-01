@@ -8,6 +8,7 @@ class Api::UserBillsController < ApplicationController
     bill = UserBill.find(params[:id])
     if bill.user_id == current_user.id
       bill.accepted = params[:accept] == 'true'
+      bill.paid = params[:paid] == 'true'
       render json: bill
     else
       render json: { error: 'The user does not own this bill' }

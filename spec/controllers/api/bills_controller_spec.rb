@@ -106,4 +106,47 @@ describe Api::BillsController, type: :request do
       expect(json_response["error"]).to be_present
     end
   end
+
+    context 'User is able to pay the value of the bill' do
+    before do
+      user_bill
+      signin_with_api(second_user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        paid: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Updated bill value is true' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["paid"]).to eq(true)
+    end
+  end
+
+
+  context 'Other users are unable to change the pay status of a bill' do
+    before do
+      user_bill
+      signin_with_api(user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        paid: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Returns an error message' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["error"]).to be_present
+    end
+  end
 end
