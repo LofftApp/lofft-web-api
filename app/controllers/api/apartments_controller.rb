@@ -3,6 +3,7 @@ class Api::ApartmentsController < ApplicationController
   def create
     @apartment = Apartment.new(apartment_params)
     @apartment.save
+    binding.pry
     render json: @apartment
   end
 
