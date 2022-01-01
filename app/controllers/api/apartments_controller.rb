@@ -2,8 +2,8 @@ class Api::ApartmentsController < ApplicationController
   respond_to :json
   def create
     @apartment = Apartment.new(apartment_params)
+    @apartment.user = current_user
     @apartment.save
-    binding.pry
     render json: @apartment
   end
 
