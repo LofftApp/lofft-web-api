@@ -53,12 +53,12 @@ apartments = Apartment.all
 users = User.all
 apartment_added = []
 
-users.each do |user|
-  i = rand(apartments.length)
-  user.apartments << apartments[i]
-  !apartment_added.include?(i) ? user.user_apartments.first.update(owner: true) : nil
-  apartment_added << i
-end
+# users.each do |user|
+#   i = rand(apartments.length)
+#   user.apartments << apartments[i]
+#   !apartment_added.include?(i) ? user.user_apartments.first.update(owner: true) : nil
+#   apartment_added << i
+# end
 
 # Adding Bills to Users and Apartments
 p 'Seeding bills to users and apartments'
