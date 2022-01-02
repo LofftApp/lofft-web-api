@@ -61,20 +61,20 @@ apartment_added = []
 # end
 
 # Adding Bills to Users and Apartments
-p 'Seeding bills to users and apartments'
-bills = Bill.all
-bills.each do |bill|
-  i = rand(0...users.length)
-  user = users[i]
-  user.bills << bill
-  # user.user_bills.find_by(bill_id: bill.id).update(owner: true)
-  if bill.apartment
-    user.apartments.first.bills << bill
-  else
-    i = rand(1..users.length)
-    user = User.find_by(id: i)
-    user.bills << bill
-  end
-end
+# p 'Seeding bills to users and apartments'
+# bills = Bill.all
+# bills.each do |bill|
+#   i = rand(0...users.length)
+#   user = users[i]
+#   user.bills << bill
+#   # user.user_bills.find_by(bill_id: bill.id).update(owner: true)
+#   if bill.apartment
+#     user.apartments.first.bills << bill
+#   else
+#     i = rand(1..users.length)
+#     user = User.find_by(id: i)
+#     user.bills << bill
+#   end
+# end
 
 p 'Seeding complete'
