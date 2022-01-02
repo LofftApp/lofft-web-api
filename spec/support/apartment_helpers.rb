@@ -10,6 +10,13 @@ module ApartmentHelpers
     )
   end
 
+  def create_user_apartment(user, apartment)
+    FactoryBot.create(:user_apartment,
+      user_id: user.id,
+      apartment_id: apartment.id
+    )
+  end
+
   def build_apartment
     FactoryBot.build(:apartment,
       name: Faker::Beer.brand,

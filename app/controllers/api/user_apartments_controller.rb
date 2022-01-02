@@ -1,5 +1,9 @@
 class Api::UserApartmentsController < ApplicationController
 
+  def index
+    render json: {}
+  end
+
   def create
     apartment = Apartment.find(params[:apartment])
     user_apartment = UserApartment.new
