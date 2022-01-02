@@ -22,19 +22,20 @@ describe Api::UserApartmentsController, type: :request do
       expect(response.status).to eq(200)
     end
 
-    it 'returns an association to the user' do
-      json_response = JSON.parse(response.stream.body)
-      expect(json_response['user_id']).to eq(second_user.id)
-    end
+    # it 'returns an association to the user' do
+    #   json_response = JSON.parse(response.stream.body)
+    #   expect(json_response['user_id']).to eq(second_user.id)
+    # end
 
-    it 'returns an association to the user' do
+    it 'returns an association to the apartment' do
       json_response = JSON.parse(response.stream.body)
-      expect(json_response['apartment_id']).to eq(apartment.id)
+      expect(json_response['id']).to eq(apartment.id)
     end
   end
 
   context 'A user can get the information about their apartment' do
     before do
+      user_apartment
       signin_with_api(second_user)
       get api_user_apartments, headers: {
         'Authorization': response.headers['Authorization']
@@ -45,6 +46,9 @@ describe Api::UserApartmentsController, type: :request do
       expect(response.status).to eq(200)
     end
 
-    ## Continue with getting the data from the database for the user
+    it 'returns the apartment that is associated with the user' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response['id']).to eq(apartment.id)
+    end
   end
 end
