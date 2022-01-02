@@ -3,6 +3,19 @@ class Api::BillsController < Api::BaseController
   before_action :authenticate_user!
   respond_to :json
 
+  def index
+    result = []
+    @bill = Bill.where(user_id: current_user.id)
+    @user_bill = UserBill.where(user_id: current_user.id)
+    @bill.each do |b|
+      result << b
+    end
+    @user_bill.each do |b|
+      result << b
+    end
+    render json: result
+  end
+
   def create
     @bill = Bill.new(bill_params)
     @bill.user = current_user

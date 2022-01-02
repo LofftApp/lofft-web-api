@@ -16,6 +16,27 @@ describe Api::BillsController, type: :request do
   let (:bills_url) { '/api/bills' }
   let (:user_bills_url) {'/api/user_bills'}
 
+  # Get the bills associated with the current user.
+  context 'User get the bills associated with them.' do
+    before do
+      user_bill
+      signin_with_api(second_user)
+      get bills_url, headers: {
+        'Authorization': response.headers['Authorization']
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns a bill associated with the user' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response.count).to eq(1)
+    end
+
+  end
+
   # Creating a new user bill, this should be assigned to users.
   context 'Creating a new Bill' do
     before do
