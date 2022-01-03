@@ -49,32 +49,38 @@ end
 
 # Connecting User to Apartments
 p 'Adding users to apartments'
-apartments = Apartment.all
 users = User.all
-apartment_added = []
 
-# users.each do |user|
-#   i = rand(apartments.length)
-#   user.apartments << apartments[i]
-#   !apartment_added.include?(i) ? user.user_apartments.first.update(owner: true) : nil
-#   apartment_added << i
-# end
+users.each do |user|
+  i = rand(1..apartments.length)
+  apartment = Apartment.find(i)
+  user_apartment = UserApartment.new
+  user_apartment.user = user
+  user_apartment.apartment = apartment
+  user_apartment.save
+end
 
 # Adding Bills to Users and Apartments
-# p 'Seeding bills to users and apartments'
-# bills = Bill.all
-# bills.each do |bill|
-#   i = rand(0...users.length)
-#   user = users[i]
-#   user.bills << bill
-#   # user.user_bills.find_by(bill_id: bill.id).update(owner: true)
-#   if bill.apartment
-#     user.apartments.first.bills << bill
-#   else
-#     i = rand(1..users.length)
-#     user = User.find_by(id: i)
-#     user.bills << bill
-#   end
-# end
+p 'Seeding bills to users and apartments'
+bills = Bill.all
+bills.each do |bill|
+  user_bill = UserBill.new
+  cycles = rand(1...3)
+  count = 0
+  until count == cycles
+    i = rand(1..users.length)
+    user = User.find(i)
+    while bill.user == user
+      i = rand(1..users.length)
+      user = User.find(i)
+    end
+    user_bill.user = user
+    user_bill.bill = bill
+    user_bill.value = bill.value / (cycles + 1)
+    user_bill.accepted = (i % 2).zero?
+    user_bill.save
+    count += 1
+  end
+end
 
 p 'Seeding complete'
