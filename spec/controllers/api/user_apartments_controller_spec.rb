@@ -51,4 +51,23 @@ describe Api::UserApartmentsController, type: :request do
       expect(json_response['id']).to eq(apartment.id)
     end
   end
+
+  # User is able to delete a user apartment
+  context 'A user is able delete and remove themselves from an apartment' do
+    before do
+      user_apartment
+      signin_with_api(second_user)
+      delete "/api/user_apartments/#{user_apartment.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }
+    end
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns true' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response['message']).to eq(true)
+    end
+  end
 end
