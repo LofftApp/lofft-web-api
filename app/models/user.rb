@@ -6,8 +6,11 @@ class User < ApplicationRecord
       :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
   # Connections and relationships
+  has_many :apartments
   has_many :user_apartments
   has_many :apartments, through: :user_apartments
+
+  has_many :bills
 
   has_many :user_bills
   has_many :bills, through: :user_bills

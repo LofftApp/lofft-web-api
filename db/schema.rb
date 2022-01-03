@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_095846) do
+ActiveRecord::Schema.define(version: 2022_01_02_112422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2021_12_22_095846) do
     t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_apartments_on_user_id"
   end
 
   create_table "bills", force: :cascade do |t|
@@ -40,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_095846) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "apartment", default: false
     t.boolean "paid", default: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_bills_on_user_id"
   end
 
@@ -53,7 +55,6 @@ ActiveRecord::Schema.define(version: 2021_12_22_095846) do
   create_table "user_apartments", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "apartment_id"
-    t.boolean "owner", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["apartment_id"], name: "index_user_apartments_on_apartment_id"
@@ -89,6 +90,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_095846) do
 
   add_foreign_key "apartment_bills", "apartments"
   add_foreign_key "apartment_bills", "bills"
+  add_foreign_key "apartments", "users"
   add_foreign_key "bills", "users"
   add_foreign_key "user_bills", "bills"
   add_foreign_key "user_bills", "users"

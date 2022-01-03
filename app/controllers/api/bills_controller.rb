@@ -2,17 +2,34 @@ class Api::BillsController < Api::BaseController
 
   before_action :authenticate_user!
   respond_to :json
+
+  def index
+    result = []
+    @bill = Bill.where(user_id: current_user.id)
+    @user_bill = UserBill.where(user_id: current_user.id)
+    @bill.each do |b|
+      result << b
+    end
+    @user_bill.each do |b|
+      result << b
+    end
+    render json: result
+  end
+
   def create
-    @user = User.find(params[:user][:user].to_i)
     @bill = Bill.new(bill_params)
+    @bill.user = current_user
     @bill.save
-
-    @user_bill = UserBill.new
-    @user_bill.user = @user
-    @user_bill.bill = @bill
-    @user_bill.save
-
-    render json: @user_bill
+    user = params[:user][:user]
+    user.each do |u|
+      @user_bill = UserBill.new
+      @user = User.find(u.to_i)
+      @user_bill.value = @bill.value.to_i / user.count.to_i
+      @user_bill.user = @user
+      @user_bill.bill = @bill
+      @user_bill.save
+    end unless user.count.zero?
+    render json: @bill
   end
 
   private

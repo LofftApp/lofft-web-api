@@ -11,4 +11,21 @@ module ApiHelpers
       }
     }
   end
+
+  def create_bill_api(auth, user, bill)
+    post '/api/bills', headers: {
+      'Authorization': auth
+    }, params: {
+      bill: {
+        name: bill.name,
+        description: bill.description,
+        value: bill.value,
+        currency: bill.currency,
+        apartment: bill.apartment,
+      },
+      user: {
+        user: [user.id]
+      }
+    }
+  end
 end

@@ -1,17 +1,43 @@
 require 'rails_helper'
 
 describe Api::BillsController, type: :request do
-  # Bill builder for test
-  let (:bill) { build_bill }
-
   # User Construction
   let (:user) { create_user }
   let (:second_user) { create_user }
   let (:third_user) { create_user }
 
+  # Bill builder for test
+  let (:bill) { build_bill }
+  let (:second_bill) { create_bill(user) }
+
+  # Create the User bills connection
+  let (:user_bill) { create_user_bill(second_bill, second_user)}
+
   let (:bills_url) { '/api/bills' }
   let (:user_bills_url) {'/api/user_bills'}
 
+  # Get the bills associated with the current user.
+  context 'User get the bills associated with them.' do
+    before do
+      user_bill
+      signin_with_api(second_user)
+      get bills_url, headers: {
+        'Authorization': response.headers['Authorization']
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns a bill associated with the user' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response.count).to eq(1)
+    end
+
+  end
+
+  # Creating a new user bill, this should be assigned to users.
   context 'Creating a new Bill' do
     before do
       signin_with_api(user)
@@ -26,37 +52,144 @@ describe Api::BillsController, type: :request do
           apartment: bill.apartment,
         },
         user: {
-          user: user.id
+          user: [second_user.id, third_user.id]
         }
       }
     end
     it 'returns 200' do
       expect(response.status).to eq(200)
     end
-    it 'returns bill_id' do
-      @json_response = JSON.parse(response.stream.body)
-      expect(@json_response["bill_id"]).to be_present
-    end
     it 'returns user_id with correct value' do
-      @json_response = JSON.parse(response.stream.body)
-      expect(@json_response["user_id"]).to eq(user.id)
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["user_id"]).to eq(user.id)
     end
   end
 
-  # user is the bill owner
-  # the total is 30€
-  # this is split between three users (5/10/15)
-  # Two user bills are created to charge friends
-  # The value returned should be the sum of user_bills.
+  # A user is able to get the value of their bills.
   context 'User get value of their bills' do
     before do
-      signin_with_api(user)
-      get user_bills_url, headers: {
+      user_bill
+      signin_with_api(second_user)
+      get api_user_bills_url, headers: {
         'Authorization': response.headers['Authorization']
       }
     end
     it 'returns 200' do
       expect(response.status).to eq(200)
+    end
+    it 'returns current user assigned to the bill' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response[0]["user_id"]).to eq(second_user.id)
+    end
+  end
+
+  context 'User is able to accept the value of accepted' do
+    before do
+      user_bill
+      signin_with_api(second_user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        accept: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Updated bill value is true' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["accepted"]).to eq(true)
+    end
+
+
+  end
+
+
+  context 'Other users are unable to change the auth status of a bill' do
+    before do
+      user_bill
+      signin_with_api(user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        accept: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Returns an error message' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["error"]).to be_present
+    end
+  end
+
+  context 'User is able to pay the value of the bill' do
+    before do
+      user_bill
+      signin_with_api(second_user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        accept: true,
+        paid: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Updated bill value is true' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["paid"]).to eq(true)
+    end
+  end
+
+  context 'A bill must be accepted in order to be paid' do
+    before do
+      user_bill
+      signin_with_api(second_user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        paid: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Returns an error message' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["error"]).to be_present
+    end
+  end
+
+
+  context 'Other users are unable to change the pay status of a bill' do
+    before do
+      user_bill
+      signin_with_api(user)
+      patch "/api/user_bills/#{user_bill.id}", headers: {
+        'Authorization': response.headers['Authorization']
+      }, params: {
+        paid: true
+      }
+    end
+
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'Returns an error message' do
+      json_response = JSON.parse(response.stream.body)
+      expect(json_response["error"]).to be_present
     end
   end
 end
