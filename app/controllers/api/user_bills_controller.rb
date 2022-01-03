@@ -6,7 +6,7 @@ class Api::UserBillsController < ApplicationController
       details = {
         id: user_bill.id,
         user_id: user_bill.user_id,
-        item_value: user_bill.value,
+        value: user_bill.value,
         accepted: user_bill.accepted,
         paid: user_bill.paid,
         user: {
