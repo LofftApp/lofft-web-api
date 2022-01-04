@@ -1,8 +1,8 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Add a feature that is apart of the development pipeline
 title: ""
-labels: "Enhancement"
+labels: "enhancement"
 assignees: ""
 ---
 
@@ -10,38 +10,22 @@ assignees: ""
 
 # Feature Request
 
-_Use this form to outline potential new feaures or planned features in lofft_
+_Use this form to outline potential new features or planned features in Lofft_
 
 **[Notion Link]()**
 
-## **Feature description**
+---
 
-### **Feature experience**
+## Feature description
+
+### Feature experience
 
 <!-- As a `visitor` ... -->
 
 -
 
-### **Todo**
+### Todo
 
 - [ ]
 
-### **Potential Challenges**
-
--
-
-## **Link to Figma board, images and design description**
-
-_Latest design is located on the figma board_
-
-**[Figma board]()**
-
-### Screen shots
-
-### Design Description
-
-<!--Relevent for both-->
-
-### Additional context
-
-Add any other context or screenshots about the feature request here.
+### Design
