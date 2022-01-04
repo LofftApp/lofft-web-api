@@ -2,52 +2,46 @@
 name: Feature request
 about: Suggest an idea for this project
 title: ""
-labels: ""
+labels: "Enhancement"
 assignees: ""
 ---
 
-<!-- Delete what is not relevent to the feature -->
-<!-- Feature request is an idea or concept that you feel should be within the application, development cycle is a feature added as part of the development plan -->
+<!-- V1.1 -->
 
-_Feature Request / Development cycle_
+# Feature Request
 
-**Notion Link**
+_Use this form to outline potential new feaures or planned features in lofft_
 
-<!--If a notion page has been created please link here-->
+**[Notion Link]()**
 
-[Notion Link]()
+## **Feature description**
 
-<!-- Delete the section that does not apply to your feature request -->
+### **Feature experience**
 
-<!-- Feature Request -->
+<!-- As a `visitor` ... -->
 
-**What is the problem you're trying to solve? Please describe.**
-A clear and concise description of what the problem is. Ex.
-I'm always frustrated when...
+-
 
-**Describe the solution**
-A clear and concise description of what you want to happen.
+### **Todo**
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+- [ ]
 
-<!-- Development Cycle -->
+### **Potential Challenges**
 
-**Describe the feature**
+-
 
-<!-- The feature is a button to allow users to register -->
+## **Link to Figma board, images and design description**
 
-**What is the user journey for this feature**
+_Latest design is located on the figma board_
 
-- (e.g.) As a `visitor` I am able to log-in.
+**[Figma board]()**
 
-**Link to Figma board, images and design description**
+### Screen shots
 
-- [Figma Board]()
-- [Screen Shots]()
-- Design Description...
+### Design Description
 
 <!--Relevent for both-->
 
-**Additional context**
+### Additional context
+
 Add any other context or screenshots about the feature request here.

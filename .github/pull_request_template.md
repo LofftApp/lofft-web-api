@@ -2,27 +2,12 @@
 
 ## Pull Request
 
-<!-- Place a note here regarding what has been completed -->
-
-**Notion Link**
-
-<!-- Place the link to the notion page in here -->
-
-- [Notion Link]()
-
-**Issue Ref**
-
 <!-- If associated with an Issue place the issue number in here
 Use the following keywords followed by the issue number:
 close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved -->
 <!-- closes #109 -->
 
-### To-do
-
-<!-- Place a list of todo's below -->
-
-- [x] To do list Item Complete
-- [ ]
+**Closes**
 
 ### Changes and Updates
 
