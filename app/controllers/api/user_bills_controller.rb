@@ -10,9 +10,9 @@ class Api::UserBillsController < ApplicationController
         accepted: user_bill.accepted,
         paid: user_bill.paid,
         user: {
-          id: user_bill.user.id,
-          first_name: user_bill.user.first_name,
-          last_name: user_bill.user.last_name
+          id: user_bill.bill.user.id,
+          first_name: user_bill.bill.user.first_name,
+          last_name: user_bill.bill.user.last_name
         },
         bill: {
           id: user_bill.bill.id,
