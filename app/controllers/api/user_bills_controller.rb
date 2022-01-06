@@ -1,7 +1,26 @@
 class Api::UserBillsController < ApplicationController
   def index
-    bills = UserBill.where(user_id: current_user.id)
-    render json: bills
+    results = []
+    user_bills = UserBill.where(payer_id: current_user.id)
+    user_bills.each do |user_bill|
+      details = {
+        id: user_bill.id,
+        recipient: user_bill.recipient,
+        payer: user_bill.payer,
+        value: user_bill.value,
+        accepted: user_bill.accepted,
+        paid: user_bill.paid,
+        received: user_bill.received,
+        bill: {
+          id: user_bill.bill.id,
+          description: user_bill.bill.description,
+          value: user_bill.bill.value,
+          currency: user_bill.bill.currency
+        }
+      }
+      results << details
+    end
+    render json: results
   end
 
   def update
@@ -9,10 +28,12 @@ class Api::UserBillsController < ApplicationController
     if bill.user_id == current_user.id
       bill.accepted = params[:accept] == 'true'
       return render json: { error: 'This bill has not been accepted' } unless bill.accepted
+
       bill.paid = params[:paid] == 'true'
       render json: bill
     else
       render json: { error: 'The user does not own this bill' }
     end
   end
+
 end

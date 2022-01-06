@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   has_many :bills
 
-  has_many :user_bills
+  # has_many :user_bills
+  has_many :recipients, class_name: 'UserBill', foreign_key: 'recipient_id'
+  has_many :payers, class_name: 'UserBill', foreign_key: 'payer_id'
   has_many :bills, through: :user_bills
 end

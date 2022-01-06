@@ -74,7 +74,8 @@ bills.each do |bill|
       i = rand(1..users.length)
       user = User.find(i)
     end
-    user_bill.user = user
+    user_bill.payer = user
+    user_bill.recipient = bill.user
     user_bill.bill = bill
     user_bill.value = bill.value / (cycles + 1)
     user_bill.accepted = (i % 2).zero?
